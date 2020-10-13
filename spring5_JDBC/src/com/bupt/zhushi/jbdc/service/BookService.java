@@ -35,4 +35,8 @@ public class BookService {
     public List<Book> findAll(){
         return dao.findAll();
     }
+
+    public void batchAddBook(List<Object []> args){dao.batchAdd(args);}
+
+    public void batchDeleteBook(List<Object []> args){dao.batchDelete(args);}
 }

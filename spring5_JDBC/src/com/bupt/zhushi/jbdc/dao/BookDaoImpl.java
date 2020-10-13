@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -67,5 +68,19 @@ public class BookDaoImpl implements BookDao {
         String sql = "select * from t_book";
         List<Book> query = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Book>(Book.class));
         return query;
+    }
+
+    @Override
+    public void batchAdd(List<Object[]> args) {
+        String sql = "insert into t_book values(?,?,?)";
+        int[] ints = jdbcTemplate.batchUpdate(sql, args);
+        System.out.println(Arrays.toString(ints));
+    }
+
+    @Override
+    public void batchDelete(List<Object[]> args) {
+        String sql = "delete from t_book where userId=?";
+        int[] ints = jdbcTemplate.batchUpdate(sql, args);
+        System.out.println(ints);
     }
 }

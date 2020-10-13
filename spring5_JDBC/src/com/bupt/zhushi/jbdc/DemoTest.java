@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,5 +73,33 @@ class DemoTest {
 
         List<Book> all = bookService.findAll();
         System.out.println(all);
+    }
+
+    @Test
+    public void batchAdd(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean1.xml");
+        BookService bookService = context.getBean("bookService", BookService.class);
+
+        List<Object []> objects = new LinkedList<>();
+        Object[] o1 = {"3", "Sylvia", "six"};
+        Object[] o2 = {"4", "Nelson", "six"};
+        objects.add(o1);
+        objects.add(o2);
+
+        bookService.batchAddBook(objects);
+    }
+
+    @Test
+    public void batchDelete(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("bean1.xml");
+        BookService bookService = context.getBean("bookService", BookService.class);
+
+        List<Object []> objects = new LinkedList<>();
+        Object[] o1 = {"1"};
+        Object[] o2 = {"2"};
+        objects.add(o1);
+        objects.add(o2);
+
+        bookService.batchDeleteBook(objects);
     }
 }
